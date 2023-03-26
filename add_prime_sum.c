@@ -52,7 +52,7 @@ int	is_prime(int nb)
 		return (0);
 	if (nb > 2 && nb % 2 == 0)
 		return (0);
-	while (i <(nb / 2))
+	while (i < (nb / 2))
 	{
 		if (nb % i == 0)
 			return (0);

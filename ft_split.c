@@ -1,6 +1,4 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int ft_strlen(char *str)
 {
@@ -10,70 +8,53 @@ int ft_strlen(char *str)
         i++;
     return (i);
 }
+
+char *ft_strncpy(char *s1, char *s2, int n)
+{
+	int i = 0;
+	while (i < n && s2[i])
+	{
+		s1[i] = s2[i];
+		i++;
+	}
+	s1[i] = '\0';
+	return(s1);
+}
 char    **ft_split(char *str)
 {
-    int i;
-    int j;
-    int k;
-    int word_count;
-    int len;
-    char **result;
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	int len = ft_strlen (str);
+	int wordcount = 0;
+	char **result;
 
-    i = 0;
-    k = 0;
-    j = 0;
-    len = ft_strlen(str);
-    word_count = 0;
-    while (i < len)// to count words
-    {
-        while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))// we skip white spaces
-            i++;
-        if (str[i])//count how many words we have
-        {
-            while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
-                i++;
-            word_count++;
-        }
-    }
-    result = malloc(sizeof(char*) *(word_count + 1));
-    if (result == NULL)
-        return(NULL);
-      i = 0;
-    while (i < len)
-    {
-        while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))// we skip white spaces
-            i++;
-		if (str[i] == '\0')
-			break ;
-        if (str[i])
-        {
-            j = i;
-            while (str[j] && (str[j] != ' ' && str[j] != '\t' && str[j] != '\n'))
-                j++;
-            result[k] = malloc(sizeof(char) * (j - i + 1));
-            if (result[k] == NULL)
-                return(NULL);
-            strncpy(result[k], str + i ,j - i);
-            result[k][j - i] = '\0';
-            i = j;
-            k++;
-           
-        }
-    }
-    result[k] = NULL;
-    return result;
-}
-
-
-int main()
-{
-	int	i;
-	char	**str =ft_split("    ");
-
+	while (str[i])
+	{
+		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+			i++;
+		if (str[i])
+			wordcount++;
+		while (str[i] && (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'))
+				i++;
+	}
+	result = malloc(sizeof(char *) * (wordcount + 1));
+	if (result == NULL)
+		return(NULL);
 	i = 0;
 	while (str[i])
 	{
-		printf("%s \n", str[i]);
-		i++;
+		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+			i++;
+		j = i;
+		while (str[i] && (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'))
+				i++;
+		if  (i > j)
+		{
+			result[k] = malloc(sizeof(char) * ((i - j) + 1));
+			ft_strncpy(result[k++], &str[j], i - j);
+		}
 	}
+	result[k] = NULL;
+    return result;
 }

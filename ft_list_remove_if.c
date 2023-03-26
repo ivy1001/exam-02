@@ -15,6 +15,6 @@ void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
 		free(lst);
 		ft_list_remove_if(begin_list, data_ref, cmp);
 	}
-	lst = *begin_list;
+	lst = *begin_list;// so lst == lst->next
 	ft_list_remove_if(&lst->next, data_ref, cmp);
 }
